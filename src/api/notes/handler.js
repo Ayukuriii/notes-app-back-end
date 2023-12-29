@@ -1,6 +1,12 @@
 class NotesHandler {
   constructor(service) {
     this._service = service
+
+    this.postNoteHandler = this.postNoteHandler.bind(this)
+    this.getNotesHandler = this.getNotesHandler.bind(this)
+    this.getNoteByIdHandler = this.getNoteByIdHandler.bind(this)
+    this.putNoteByIdHandler = this.putNoteByIdHandler.bind(this)
+    this.deleteNoteByIdHandler = this.deleteNoteByIdHandler.bind(this)
   }
 
   postNoteHandler(request, h) {
@@ -34,7 +40,6 @@ class NotesHandler {
 
   getNotesHandler() {
     const notes = this._service.getNotes()
-
     return {
       status: 'success',
       data: {
