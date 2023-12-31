@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const { nanoid } = require('nanoid')
-const InvariantError = require('../../exception/InvariantError')
 const NotFoundError = require('../../exception/NotFoundError')
+const InvariantError = require('../../exception/InvariantError')
 
 class NotesService {
   constructor() {
