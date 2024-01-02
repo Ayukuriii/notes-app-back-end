@@ -30,7 +30,6 @@ class NotesService {
 
   async getNotes() {
     const result = await this._pool.query('SELECT * FROM notes')
-    console.log('Result from the database:', result.rows)
     return result.rows.map(mapDBToModel)
   }
 

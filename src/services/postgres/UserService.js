@@ -16,7 +16,7 @@ class UserService {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const query = {
-      text: 'INSERT INTO user VALUES($1, $2, $3, $4) RETURNING id',
+      text: 'INSERT INTO users VALUES($1, $2, $3, $4) RETURNING id',
       values: [id, username, hashedPassword, fullname],
     }
 
@@ -44,7 +44,7 @@ class UserService {
     }
   }
 
-  async getUsers(userId) {
+  async getUserById(userId) {
     const query = {
       text: 'SELECT id, username, fullname FROM users WHERE id = $1',
       values: [userId],
