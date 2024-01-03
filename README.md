@@ -13,7 +13,7 @@ Untuk menggunakan aplikasi ini, Anda perlu memiliki Node.js dan PostgreSQL terin
 Untuk menginstal aplikasi ini, Anda dapat menggunakan perintah berikut:
 
 ```
-git clone https://github.com/[nama-pengembang]/notes-app-back-end.git
+git clone https://github.com/Ayukuriii/notes-app-back-end.git
 cd notes-app-back-end
 npm install
 ```
@@ -22,8 +22,19 @@ npm install
 
 Aplikasi ini menggunakan file `.env` untuk menyimpan konfigurasi. Anda perlu membuat file ini dan menambahkan variabel berikut:
 
-* `DATABASE_URL`: URL database PostgreSQL Anda
-* `JWT_SECRET`: Kunci rahasia untuk token JWT
+* `Server Configuration`: konfigurasi lingkunan applikasi
+  ```
+  HOST=
+  PORT=
+  ```
+* `DB Configuration`: Konfigurasi Database menggunakan Postgresql
+  ```
+  PGUSER=
+  PGHOST=
+  PGPASSWORD=
+  PGDATABASE=
+  PGPORT=
+  ```
 
 **Peluncuran**
 
