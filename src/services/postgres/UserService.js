@@ -1,8 +1,10 @@
+/* eslint-disable comma-dangle */
 const { Pool } = require('pg')
 const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
 const InvariantError = require('../../exception/InvariantError')
 const NotFoundError = require('../../exception/NotFoundError')
+const AuthenticationError = require('../../exception/AuthenticationError')
 
 class UserService {
   constructor() {
@@ -29,21 +31,6 @@ class UserService {
     return result.rows[0].id
   }
 
-  async verifyNewUsername(username) {
-    const query = {
-      text: 'SELECT username FROM users WHERE username = $1',
-      values: [username],
-    }
-
-    const result = await this._pool.query(query)
-
-    if (result.rowCount) {
-      throw new InvariantError(
-        'Gagal menambahkan user. Username telah terdaftar'
-      )
-    }
-  }
-
   async getUserById(userId) {
     const query = {
       text: 'SELECT id, username, fullname FROM users WHERE id = $1',
@@ -57,6 +44,43 @@ class UserService {
     }
 
     return result.rows[0]
+  }
+
+  async verifyNewUsername(username) {
+    const query = {
+      text: 'SELECT username FROM users WHERE username = $1',
+      values: [username],
+    }
+
+    const result = await this._pool.query(query)
+
+    if (result.rowCount) {
+      throw new InvariantError(
+        'Gagal menambahkan user. Username sudah digunakan.'
+      )
+    }
+  }
+
+  async verifyUserCredential(username, password) {
+    const query = {
+      text: 'SELECT id, password FROM users WHERE username = $1',
+      values: [username],
+    }
+
+    const result = await this._pool.query(query)
+
+    if (!result.rowCount) {
+      throw new AuthenticationError('Kredensial yang Anda berikan salah')
+    }
+
+    const { id, password: hashedPassword } = result.rows[0]
+    const match = await bcrypt.compare(password, hashedPassword)
+
+    if (!match) {
+      throw new AuthenticationError('Kredensial yang Anda berikan salah')
+    }
+
+    return id
   }
 
   //   async getUserById() {}
