@@ -38,6 +38,7 @@ Aplikasi ini menggunakan file `.env` untuk menyimpan konfigurasi. Anda perlu mem
 * `JWT configuration`: Konfigurasi akses token untuk menggunakan jwt
   ```
   ACCESS_TOKEN_KEY=
+  REFRESH_TOKEN_KEY=
   ```
   
 
