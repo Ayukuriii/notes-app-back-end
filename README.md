@@ -23,11 +23,13 @@ npm install
 Aplikasi ini menggunakan file `.env` untuk menyimpan konfigurasi. Anda perlu membuat file ini dan menambahkan variabel berikut:
 
 * `Server Configuration`: konfigurasi lingkunan applikasi
+  
   ```
   HOST=
   PORT=
   ```
 * `DB Configuration`: Konfigurasi Database menggunakan Postgresql
+  
   ```
   PGUSER=
   PGHOST=
@@ -36,9 +38,11 @@ Aplikasi ini menggunakan file `.env` untuk menyimpan konfigurasi. Anda perlu mem
   PGPORT=
   ```
 * `JWT configuration`: Konfigurasi akses token untuk menggunakan jwt
+  
   ```
   ACCESS_TOKEN_KEY=
   REFRESH_TOKEN_KEY=
+  ACCESS_TOKEN_AGE=
   ```
   
 
@@ -121,8 +125,6 @@ Output:
   "content": "Ini adalah catatan baru"
 }
 ```
-
-Untuk informasi lebih lanjut tentang penggunaan API, Anda dapat melihat dokumentasi API.
 
 **Troubleshooting**
 
