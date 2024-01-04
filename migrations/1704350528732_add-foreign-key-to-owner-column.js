@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* eslint-disable camelcase */
 exports.up = (pgm) => {
   // membuat user baru
@@ -12,7 +13,7 @@ exports.up = (pgm) => {
   pgm.addConstraint(
     'notes',
     'fk_notes.owner_users.id',
-    'FPREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE'
+    'FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE'
   )
 }
 

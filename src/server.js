@@ -4,21 +4,30 @@ const Hapi = require('@hapi/hapi')
 const Jwt = require('@hapi/jwt')
 const ClientError = require('./exception/ClientError')
 
+// notes
 const notes = require('./api/notes')
 const NotesService = require('./services/postgres/NoteService')
 const NotesValidator = require('./validator/notes')
 
+// users
 const users = require('./api/users')
 const UsersService = require('./services/postgres/UserService')
 const UsersValidator = require('./validator/users')
 
+// authentications
 const authentications = require('./api/authentications')
 const AuthenticationsService = require('./services/postgres/AuthenticationsService')
 const TokenManager = require('./tokenize/TokenManager')
 const AuthenticationsValidator = require('./validator/authentications')
 
+// collaborations
+const collaborations = require('./api/collaborations')
+const CollaborationsService = require('./services/postgres/CollaborationsService')
+const CollaborationsValidator = require('./validator/collaborations')
+
 const init = async () => {
-  const notesService = new NotesService()
+  const collaborationsService = new CollaborationsService()
+  const notesService = new NotesService(collaborationsService)
   const usersService = new UsersService()
   const authenticationsService = new AuthenticationsService()
 
@@ -77,6 +86,14 @@ const init = async () => {
         usersService,
         tokenManager: TokenManager,
         validator: AuthenticationsValidator,
+      },
+    },
+    {
+      plugin: collaborations,
+      options: {
+        collaborationsService,
+        notesService,
+        validator: CollaborationsValidator,
       },
     },
   ])
